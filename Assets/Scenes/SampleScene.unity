@@ -1319,6 +1319,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxSquareDistance: 1.5
+  MinSquareDistance: 0.1
   LeftHand: {fileID: 2010694636}
   RightHand: {fileID: 32758811}
   RestingSpotLeft: {fileID: 1635003989}

@@ -6,6 +6,7 @@ public class InputMapper : MonoBehaviour
 {
     [Header("Config")]
     public float MaxSquareDistance = 1.5f;
+    public float MinSquareDistance = 1.5f;
 
     [Header("Hand References")]
     public GameObject LeftHand;
@@ -30,23 +31,29 @@ public class InputMapper : MonoBehaviour
         float RestingSquareDistance = Mathf.Clamp(
             (LeftHand.transform.localPosition - RestingSpotLeft.transform.localPosition).magnitude *
             (RightHand.transform.localPosition - RestingSpotRight.transform.localPosition).magnitude,
-            0.001f, MaxSquareDistance);
+            MinSquareDistance, MaxSquareDistance);
 
         float JoySquareDistance = Mathf.Clamp(
             (LeftHand.transform.localPosition - JoySpotLeft.transform.localPosition).magnitude *
             (RightHand.transform.localPosition - JoySpotRight.transform.localPosition).magnitude,
-            0.001f, MaxSquareDistance);
+            MinSquareDistance, MaxSquareDistance);
 
         float FearSquareDistance = Mathf.Clamp(
             (LeftHand.transform.localPosition - FearSpotLeft.transform.localPosition).magnitude *
             (RightHand.transform.localPosition - FearSpotRight.transform.localPosition).magnitude,
-            0.001f, MaxSquareDistance);
+            MinSquareDistance, MaxSquareDistance);
 
         float SorrowSquareDistance = Mathf.Clamp(
             (LeftHand.transform.localPosition - SorrowSpotLeft.transform.localPosition).magnitude *
             (RightHand.transform.localPosition - SorrowSpotRight.transform.localPosition).magnitude,
-            0.001f, MaxSquareDistance);
+            MinSquareDistance, MaxSquareDistance);
 
-        Debug.LogError("Rest = " + RestingSquareDistance + " | Joy = " + JoySquareDistance + " | Fear = " + FearSquareDistance + " | Sorrow = " + SorrowSquareDistance);
+        float sum = RestingSquareDistance + JoySquareDistance + FearSquareDistance + SorrowSquareDistance;
+        float pNJoy = sum / JoySquareDistance;
+        float pNResting = sum / RestingSquareDistance;
+        float pNFear = sum / FearSquareDistance;
+        float pNSorrow = sum / SorrowSquareDistance;
+
+        Debug.LogError("Rest = " + pNResting + " | Joy = " + pNJoy + " | Fear = " + pNFear + " | Sorrow = " + pNSorrow);
     }
 }
