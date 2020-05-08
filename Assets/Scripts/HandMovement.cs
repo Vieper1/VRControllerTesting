@@ -22,7 +22,7 @@ public class HandMovement : MonoBehaviour
     {
         float combinedSpeed = MovementSpeed * Time.deltaTime;
         if (Input.GetKey(Forward))
-            transform.localPosition = Vector3.forward * combinedSpeed;
+            transform.localPosition += Vector3.forward * combinedSpeed;
         if (Input.GetKey(Backward))
             transform.localPosition += Vector3.back * combinedSpeed;
 
